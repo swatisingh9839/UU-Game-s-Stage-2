@@ -40,7 +40,7 @@ def printBoard(board):
     print(board[22] + "(22)----------------------" + board[23] + "(23)----------------------" + board[24] + "(24)")
     print("\n")
 
-def adjacentlocations(position):
+def adjacentlocations(pos):
     adjacent=[
         [1,3,9],
         [0,2,3,4,5],
@@ -68,7 +68,7 @@ def adjacentlocations(position):
         [20,22,24],
         [15,21,23]
     ]
-    return adjacent[position]
+    return adjacent[pos]
 
 #Check piece is present in adjacent positions
 def existingPiece(player,board,pos1,pos2):
@@ -80,48 +80,50 @@ def existingPiece(player,board,pos1,pos2):
 
 # Return True if a player has a mill on the given position
 # Each position has an index
-def checkMill(position, board):
+def checkMill(pos, board):
     p = board[position]
     # The player on that position
-    if p != 'x':
+    if p != 'O':
         # If there is some player on that position
-        return checkNextMill(position, board, p)
+        return checkNextMill(pos, board, p)
     else:
         return False
 
 # Function to check if a player can make a mill in the next move.
 # Return True if the player can create a mill
-def checkNextMill(position, board, player):
+def checkNextMill(pos, board, player):
     mill = [
-        (existingPiece(player, board, 1, 2) or existingPiece(player, board, 3, 5)),
-        (existingPiece(player, board, 0, 2) or existingPiece(player, board, 9, 17)),
-        (existingPiece(player, board, 0, 1) or existingPiece(player, board, 4, 7)),
-        (existingPiece(player, board, 0, 5) or existingPiece(player, board, 11, 19)),
-        (existingPiece(player, board, 2, 7) or existingPiece(player, board, 12, 20)),
-        (existingPiece(player, board, 0, 3) or existingPiece(player, board, 6, 7)),
-        (existingPiece(player, board, 5, 7) or existingPiece(player, board, 14, 22)),
-        (existingPiece(player, board, 2, 4) or existingPiece(player, board, 5, 6)),
-        (existingPiece(player, board, 9, 10) or existingPiece(player, board, 11, 13)),
-        (existingPiece(player, board, 8, 10) or existingPiece(player, board, 1, 17)),
-        (existingPiece(player, board, 8, 9) or existingPiece(player, board, 12, 15)),
-        (existingPiece(player, board, 3, 19) or existingPiece(player, board, 8, 13)),
-        (existingPiece(player, board, 20, 4) or existingPiece(player, board, 10, 15)),
-        (existingPiece(player, board, 8, 11) or existingPiece(player, board, 14, 15)),
-        (existingPiece(player, board, 13, 15) or existingPiece(player, board, 6, 22)),
-        (existingPiece(player, board, 13, 14) or existingPiece(player, board, 10, 12)),
-        (existingPiece(player, board, 17, 18) or existingPiece(player, board, 19, 21)),
-        (existingPiece(player, board, 1, 9) or existingPiece(player, board, 16, 18)),
-        (existingPiece(player, board, 16, 17) or existingPiece(player, board, 20, 23)),
-        (existingPiece(player, board, 16, 21) or existingPiece(player, board, 3, 11)),
-        (existingPiece(player, board, 12, 4) or existingPiece(player, board, 18, 23)),
-        (existingPiece(player, board, 16, 19) or existingPiece(player, board, 22, 23)),
-        (existingPiece(player, board, 6, 14) or existingPiece(player, board, 21, 23)),
-        (existingPiece(player, board, 18, 20) or existingPiece(player, board, 21, 22))
+        (existingPiece(player, board, 1, 2) or existingPiece(player, board, 9, 22)),
+        (existingPiece(player, board, 0, 2) or existingPiece(player, board, 4, 7)),
+        (existingPiece(player, board, 0, 1) or existingPiece(player, board, 15, 24)),
+        (existingPiece(player, board, 4, 5) or existingPiece(player, board, 10, 19)),
+        (existingPiece(player, board, 3, 5) or existingPiece(player, board, 7, 12)),
+        (existingPiece(player, board, 3, 4) or existingPiece(player, board, 14, 21)),
+        (existingPiece(player, board, 7, 8) or existingPiece(player, board, 11, 16)),
+        (existingPiece(player, board, 1, 4) or existingPiece(player, board, 12, 17)),
+        (existingPiece(player, board, 6, 7) or existingPiece(player, board, 13, 18)),
+        (existingPiece(player, board, 0, 22) or existingPiece(player, board, 10, 11)),
+        (existingPiece(player, board, 3, 19) or existingPiece(player, board, 9, 11)),
+        (existingPiece(player, board, 10, 12) or existingPiece(player, board, 6, 16)),
+        (existingPiece(player, board, 11, 13) or existingPiece(player, board, 7, 17)),
+        (existingPiece(player, board, 12, 14) or existingPiece(player, board, 8, 18)),
+        (existingPiece(player, board, 13, 15) or existingPiece(player, board, 15, 21)),
+        (existingPiece(player, board, 2, 24) or existingPiece(player, board, 13, 14)),
+        (existingPiece(player, board, 6, 11) or existingPiece(player, board, 17, 18)),
+        (existingPiece(player, board, 12, 20) or existingPiece(player, board, 16, 18)),
+        (existingPiece(player, board, 16, 17) or existingPiece(player, board, 8, 13)),
+        (existingPiece(player, board, 20, 21) or existingPiece(player, board, 3, 10)),
+        (existingPiece(player, board, 17, 23) or existingPiece(player, board, 19, 21)),
+        (existingPiece(player, board, 19, 20) or existingPiece(player, board, 5, 14)),
+        (existingPiece(player, board, 0, 9) or existingPiece(player, board, 23, 24)),
+        (existingPiece(player, board, 22, 24) or existingPiece(player, board, 17, 20),
+        (existingPiece(player, board, 22, 23) or existingPiece(player, board, 2, 15))
     ]
-    return mill[position]
+    return mill[pos]
 
 
 # Function to return number of pieces owned by a player on the board.
 # value is '1' or '2' (player number)
 def numOfPieces(board, value):
     return board.count(value)
+
