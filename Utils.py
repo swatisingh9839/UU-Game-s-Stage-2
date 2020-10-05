@@ -1,5 +1,5 @@
 from os import system, name
-from copy import deepcopy
+
 
 
 def clearScreen():
